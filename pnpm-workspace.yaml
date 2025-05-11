@@ -1,11 +1,12 @@
 packages:
-  - 'apps/**'
-  - 'libs/**'
+  - apps/**
+  - libs/**
 
 onlyBuiltDependencies:
   - '@nestjs/core'
   - '@parcel/watcher'
   - '@scarf/scarf'
   - '@swc/core'
+  - nestjs-pino
   - nx
   - postgresql

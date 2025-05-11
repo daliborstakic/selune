@@ -6,6 +6,7 @@ import { User } from '@selune-backend/entities';
 import { UserModule } from '@selune-backend/user';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       isGlobal: true,
       envFilePath: 'apps/api/.env',
     }),
+    LoggerModule.forRoot(),
     CqrsModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
