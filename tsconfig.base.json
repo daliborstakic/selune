@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@selune-backend/entities": ["libs/backend/entities/src/index.ts"],
-      "@selune-backend/user": ["libs/backend/user/src/index.ts"]
+      "@selune-backend/user": ["libs/backend/user/src/index.ts"],
+      "@selune-backent/dtos": ["libs/backend/dtos/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
