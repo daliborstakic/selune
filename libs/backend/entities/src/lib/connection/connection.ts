@@ -1,15 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class User {
+export class Connection {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
-
-  @Column()
-  username!: string;
-
-  @Column()
-  password!: string;
 
   @Column()
   firstName!: string;
@@ -17,6 +11,6 @@ export class User {
   @Column()
   lastName!: string;
 
-  @Column({ default: true })
-  isActive!: string;
+  @Column()
+  email!: string;
 }

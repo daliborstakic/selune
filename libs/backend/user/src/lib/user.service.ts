@@ -1,29 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { CreateUserDto, UserDto } from '@selune-backend/dtos';
+import {
+  CreateUserCommand,
+  GetUserByUsernameQuery,
+  GetUsersQuery,
+} from '@selune-backend/user-application';
 import { User } from '@selune-backend/entities';
-import { Repository } from 'typeorm';
-import { CreateUserDto } from '@selune-backent/dtos';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private queryBus: QueryBus,
+    private commandBus: CommandBus,
   ) {}
 
-  findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+  public findAll(): Promise<UserDto[]> {
+    return this.queryBus.execute(new GetUsersQuery());
   }
 
-  findOne(id: string): Promise<User | null> {
-    return this.usersRepository.findOneBy({ id });
+  public async createAsync(createUserDto: CreateUserDto): Promise<string> {
+    return this.commandBus.execute(new CreateUserCommand(createUserDto));
   }
 
-  async remove(id: number): Promise<void> {
-    await this.usersRepository.delete(id);
-  }
+  public async findOneByUsername(username: string): Promise<User> {
+    const user = await this.queryBus.execute(
+      new GetUserByUsernameQuery(username),
+    );
 
-  insert(createUserDto: CreateUserDto) {
-    this.usersRepository.insert(createUserDto);
+    if (!user)
+      throw new Error(`User with the username ${username} does not exist.`);
+
+    return user;
   }
 }

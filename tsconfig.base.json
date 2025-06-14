@@ -15,9 +15,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@selune-backend/auth": ["libs/backend/auth/src/index.ts"],
+      "@selune-backend/dtos": ["libs/backend/dtos/src/index.ts"],
       "@selune-backend/entities": ["libs/backend/entities/src/index.ts"],
+      "@selune-backend/helpers": ["libs/backend/helpers/src/index.ts"],
       "@selune-backend/user": ["libs/backend/user/src/index.ts"],
-      "@selune-backent/dtos": ["libs/backend/dtos/src/index.ts"]
+      "@selune-backend/user-application": [
+        "libs/backend/user/src/lib/application/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
