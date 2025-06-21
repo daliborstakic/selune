@@ -3,7 +3,7 @@ import { GetUsersHandler } from './queries/handlers/get-users.handler';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '@selune-backend/entities';
-import { CreateUserHandler } from './commands/handlers/create-user.handler';
+import { RegisterUserHandler } from './commands/handlers/register-user.handler';
 import { GetuserByUsernameQueryHandler } from './queries/handlers/get-user-by-username-handler';
 
 @Module({
@@ -11,7 +11,7 @@ import { GetuserByUsernameQueryHandler } from './queries/handlers/get-user-by-us
   controllers: [],
   providers: [
     GetUsersHandler,
-    CreateUserHandler,
+    RegisterUserHandler,
     GetuserByUsernameQueryHandler,
   ],
   exports: [],

@@ -1,19 +1,27 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { Body, Controller, Header, HttpCode, Post } from '@nestjs/common';
+import { CommandBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { SignInDto } from '@selune-backend/dtos';
+import { CreateUserDto, UserCredentialsDto } from '@selune-backend/dtos';
+import { RegisterUserCommand } from '@selune-backend/user-application';
+import { LoginUserCommand } from '@selune-backend/auth-application';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private commandBus: CommandBus) {}
 
-  @Post()
-  @ApiOperation({
-    summary: 'Signs the user in based on the provided username and password.',
-  })
-  @HttpCode(200)
-  signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto.username, signInDto.password);
+  @Post('register')
+  @Header('content-type', 'application/json')
+  @ApiOperation({ summary: 'Create a user' })
+  @HttpCode(201)
+  async createUser(@Body() createUserDto: CreateUserDto): Promise<string> {
+    return await this.commandBus.execute(
+      new RegisterUserCommand(createUserDto),
+    );
+  }
+
+  @Post('login')
+  async login(@Body() userCredentials: UserCredentialsDto) {
+    return this.commandBus.execute(new LoginUserCommand(userCredentials));
   }
 }

@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
 import { UserModule } from '@selune-backend/user';
+import { AuthApplicationModule } from '@selune-backend/auth-application';
+import { PassportModule } from '@nestjs/passport';
+import { LocalStrategy } from './passport/strategies/local.strategy';
 
 @Module({
-  imports: [UserModule],
+  imports: [UserModule, AuthApplicationModule, PassportModule],
   controllers: [AuthController],
-  providers: [AuthService],
-  exports: [AuthService],
+  providers: [LocalStrategy],
+  exports: [],
 })
 export class AuthModule {}

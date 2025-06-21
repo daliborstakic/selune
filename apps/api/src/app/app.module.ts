@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '@selune-backend/entities';
 import { UserModule } from '@selune-backend/user';
@@ -8,6 +6,7 @@ import { AuthModule } from '@selune-backend/auth';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -31,10 +30,19 @@ import { LoggerModule } from 'nestjs-pino';
         synchronize: true,
       }),
     }),
+    JwtModule.registerAsync({
+      global: true,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret: config.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '60s' },
+      }),
+    }),
     UserModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
