@@ -19,6 +19,7 @@
       "@selune-backend/auth-application": [
         "libs/backend/auth/src/lib/application/src/index.ts"
       ],
+      "@selune-backend/connection": ["libs/backend/connection/src/index.ts"],
       "@selune-backend/dtos": ["libs/backend/dtos/src/index.ts"],
       "@selune-backend/entities": ["libs/backend/entities/src/index.ts"],
       "@selune-backend/helpers": ["libs/backend/helpers/src/index.ts"],

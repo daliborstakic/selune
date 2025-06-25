@@ -1,0 +1,9 @@
+{
+  "name": "connection",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/connection/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project connection --web",
+  "targets": {}
+}
