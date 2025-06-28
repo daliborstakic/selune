@@ -18,7 +18,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
       new ValidateUserCommand(userCredentials),
     );
 
-    const payload = { sub: user.id, username: user.username };
+    const payload = { id: user.id, username: user.username };
 
     const access_token = this.jwtService.sign(payload);
     return { access_token };
